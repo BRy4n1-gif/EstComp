@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EST335 - Estadística Computacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2196F3;
+            --secondary-color: #1976D2;
+            --dark-bg: #1a1a2e;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .course-info span {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-bg);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li strong {
+            color: var(--text-dark);
+        }
+
+        .objectives-list {
+            list-style: none;
+        }
+
+        .objectives-list li::before {
+            content: "✓ ";
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 25px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 1s ease;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: white;
+            color: var(--text-dark);
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .unit-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .topic-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .work-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .work-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .work-title {
+            flex: 1;
+        }
+
+        .work-title h3 {
+            color: var(--dark-bg);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .work-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .work-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--text-dark);
+        }
+
+        .viewer-container {
+            margin-top: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .viewer-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .github-link:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .course-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .work-header {
+                flex-direction: column;
+            }
+
+            .work-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📊 Estadística Computacional</h1>
+            <p>Análisis y modelado estadístico con herramientas computacionales</p>
+            <div class="course-info">
+                <span>Código: EST335</span>
+                <span>Créditos: 5</span>
+                <span>Ciclo: 2025-II</span>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#informacion">Información</a></li>
+            <li><a href="#temario">Temario</a></li>
+            <li><a href="#trabajos">Trabajos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="inicio" class="section">
+            <h2 class="section-title">Bienvenido al Portafolio</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>📚 Sobre el Curso</h3>
+                    <p>Este portafolio contiene todos los trabajos y proyectos desarrollados durante el semestre en la materia de Estadística Computacional, utilizando el lenguaje R para análisis de datos y modelado estadístico.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🎯 Objetivos</h3>
+                    <ul class="objectives-list">
+                        <li>Aplicar métodos estadísticos computacionales</li>
+                        <li>Desarrollar modelos predictivos</li>
+                        <li>Analizar grandes conjuntos de datos</li>
+                        <li>Visualizar resultados estadísticos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-card" style="margin-top: 2rem;">
+                <h3>📈 Progreso del Semestre</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%;">45%</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="informacion" class="section">
+            <h2 class="section-title">Información del Curso</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Detalles Académicos</h3>
+                    <ul>
+                        <li><strong>Curso:</strong> Estadística Computacional</li>
+                        <li><strong>Código:</strong> EST335</li>
+                        <li><strong>Prerequisito:</strong> EST234 - Estadística Inferencial</li>
+                        <li><strong>Horas:</strong> 4h teóricas, 2h prácticas (6 horas totales)</li>
+                        <li><strong>Créditos:</strong> 5</li>
+                        <li><strong>Semestre:</strong> 2025-II</li>
+                        <li><strong>Duración:</strong> 25 Agosto - 19 Diciembre 2025</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Herramientas</h3>
+                    <ul>
+                        <li><strong>Lenguaje:</strong> R / Python</li>
+                        <li><strong>IDE:</strong> RStudio</li>
+                        <li><strong>Control de versiones:</strong> Git/GitHub</li>
+                        <li><strong>Documentación:</strong> R Markdown</li>
+                        <li><strong>Visualización:</strong> ggplot2, plotly</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="temario" class="section">
+            <h2 class="section-title">Temario del Curso</h2>
+            
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('unidad1')">Unidad 1</button>
+                <button class="tab-button" onclick="showTab('unidad2')">Unidad 2</button>
+            </div>
+
+            <div id="unidad1" class="tab-content active">
+                <div class="unit-content">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Unidad 1: Fundamentos de Estadística Computacional</h3>
+                    
+                    <h4 style="margin-top: 1.5rem; color: var(--secondary-color);">Contenido Teórico</h4>
+                    <div class="topics-grid">
+                        <div class="topic-item">Introducción a R y RStudio</div>
+                        <div class="topic-item">Estructuras de datos en R</div>
+                        <div class="topic-item">Métodos de Monte Carlo</div>
+                        <div class="topic-item">Simulación estadística</div>
+                        <div class="topic-item">Bootstrap y remuestreo</div>
+                        <div class="topic-item">Análisis exploratorio de datos</div>
+                    </div>
+
+                    <h4 style="margin-top: 1.5rem; color: var(--secondary-color);">Contenido Práctico</h4>
+                    <div class="topics-grid">
+                        <div class="topic-item">Programación en R</div>
+                        <div class="topic-item">Generación de números aleatorios</div>
+                        <div class="topic-item">Visualización de datos</div>
+                        <div class="topic-item">Implementación de bootstrap</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="unidad2" class="tab-content">
+                <div class="unit-content">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Unidad 2: Modelado y Análisis Avanzado</h3>
+                    
+                    <h4 style="margin-top: 1.5rem; color: var(--secondary-color);">Contenido Teórico</h4>
+                    <div class="topics-grid">
+                        <div class="topic-item">Regresión lineal múltiple</div>
+                        <div class="topic-item">Modelos lineales generalizados</div>
+                        <div class="topic-item">Análisis de series temporales</div>
+                        <div class="topic-item">Métodos de clasificación</div>
+                        <div class="topic-item">Validación cruzada</div>
+                        <div class="topic-item">Machine Learning en R</div>
+                    </div>
+
+                    <h4 style="margin-top: 1.5rem; color: var(--secondary-color);">Contenido Práctico</h4>
+                    <div class="topics-grid">
+                        <div class="topic-item">Implementación de modelos predictivos</div>
+                        <div class="topic-item">Análisis de residuos</div>
+                        <div class="topic-item">Selección de modelos</div>
+                        <div class="topic-item">Proyecto final integrador</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trabajos" class="section">
+            <h2 class="section-title">Trabajos del Semestre</h2>
+            
+            <h3 style="color: var(--secondary-color); margin: 2rem 0 1rem 0;">Unidad 1</h3>
+            
+            <div class="work-card">
+                <div class="work-header">
+                    <div class="work-title">
+                        <h3>Tarea 1: Análisis Exploratorio de Datos</h3>
+                        <div class="work-meta">
+                            <span>📅 Fecha: 15/09/2025</span>
+                            <span>📊 Unidad 1</span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Análisis exploratorio completo de un conjunto de datos utilizando técnicas de visualización y estadística descriptiva en R.</p>
+                    </div>
+                    <div class="work-actions">
+                        <button class="btn btn-primary" onclick="viewFile('pdf1')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code1')">Ver Código R</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-header">
+                    <div class="work-title">
+                        <h3>Tarea 2: Simulación y Bootstrap</h3>
+                        <div class="work-meta">
+                            <span>📅 Fecha: 29/09/2025</span>
+                            <span>📊 Unidad 1</span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
+                    </div>
+                    <div class="work-actions">
+                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-header">
+                    <div class="work-title">
+                        <h3>Proyecto 1: Análisis de Monte Carlo</h3>
+                        <div class="work-meta">
+                            <span>📅 Fecha: 13/10/2025</span>
+                            <span>📊 Unidad 1</span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Aplicación de métodos de Monte Carlo para resolver problemas de integración y estimación.</p>
+                    </div>
+                    <div class="work-actions">
+                        <button class="btn btn-primary" onclick="viewFile('pdf3')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code3')">Ver Código R</button>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--secondary-color); margin: 2rem 0 1rem 0;">Unidad 2</h3>
+            
+            <div class="work-card">
+                <div class="work-header">
+                    <div class="work-title">
+                        <h3>Tarea 3: Regresión Lineal Múltiple</h3>
+                        <div class="work-meta">
+                            <span>📅 Fecha: Próximamente</span>
+                            <span>📊 Unidad 2</span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Desarrollo de modelos de regresión múltiple y análisis de supuestos.</p>
+                    </div>
+                    <div class="work-actions">
+                        <button class="btn btn-primary" disabled style="opacity: 0.5;">Pendiente</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-header">
+                    <div class="work-title">
+                        <h3>Proyecto Final: Análisis Integral</h3>
+                        <div class="work-meta">
+                            <span>📅 Fecha: 19/12/2025</span>
+                            <span>📊 Unidad 2</span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Proyecto integrador aplicando todas las técnicas aprendidas a un caso real.</p>
+                    </div>
+                    <div class="work-actions">
+                        <button class="btn btn-primary" disabled style="opacity: 0.5;">Pendiente</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para visor de archivos -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 1rem; color: var(--dark-bg);"></h2>
+            <div class="viewer-container">
+                <iframe id="fileViewer" class="viewer-iframe"></iframe>
+            </div>
+            <p style="margin-top: 1rem; color: var(--text-light); text-align: center;">
+                💡 Si el archivo no se visualiza correctamente, puedes descargarlo desde el repositorio de GitHub
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Portafolio de Estadística Computacional - EST335</p>
+        <a href="https://github.com/tu-usuario/estadistica-computacional" class="github-link" target="_blank">
+            🔗 Ver repositorio en GitHub
+        </a>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function viewFile(fileId) {
+            const modal = document.getElementById('fileModal');
+            const viewer = document.getElementById('fileViewer');
+            const title = document.getElementById('modalTitle');
+            
+            // Aquí debes reemplazar con las URLs reales de tus archivos en GitHub
+            const files = {
+                'pdf1': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
+                    title: 'Tarea 1 - Reporte PDF'
+                },
+                'code1': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
+                    title: 'Tarea 1 - Código R'
+                },
+                'pdf2': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea2/reporte.pdf',
+                    title: 'Tarea 2 - Reporte PDF'
+                },
+                'code2': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea2/codigo.R',
+                    title: 'Tarea 2 - Código R'
+                },
+                'pdf3': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/proyecto1/reporte.pdf',
+                    title: 'Proyecto 1 - Reporte PDF'
+                },
+                'code3': {
+                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/proyecto1/codigo.R',
+                    title: 'Proyecto 1 - Código R'
+                }
+            };
+            
+            if (files[fileId]) {
+                title.textContent = files[fileId].title;
+                viewer.src = files[fileId].url;
+                modal.style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('fileModal');
+            const viewer = document.getElementById('fileViewer');
+            modal.style.display = 'none';
+            viewer.src = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('fileModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Navegación suave
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
