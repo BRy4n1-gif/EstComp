@@ -618,8 +618,8 @@
                         <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf3')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code3')">Ver Código R</button>
                     </div>
                 </div>
             </div>
@@ -635,8 +635,8 @@
                         <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf4')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code4')">Ver Código R</button>
                     </div>
                 </div>
             </div>
@@ -652,8 +652,8 @@
                         <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf5')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code5')">Ver Código R</button>
                     </div>
                 </div>
             </div>
@@ -663,14 +663,15 @@
                     <div class="work-title">
                         <h3>Tarea 6: Shiny estadistica</h3>
                         <div class="work-meta">
-                            <span>📅 Fecha: 29/09/2025</span>
+                            <span>📅 Fecha: 30/09/20255</span>
                             <span>📊 Unidad 1</span>
                         </div>
-                        <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">
+                            Aplicación interactiva desarrollada con Shiny para análisis estadístico.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf6')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code6')">Ver Código R</button>
                     </div>
                 </div>
             </div>
@@ -686,8 +687,8 @@
                         <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf7')">Ver PDF</button>
+                        <button class="btn btn-secondary" onclick="viewFile('code7')">Ver Código R</button>
                     </div>
                 </div>
             </div>
@@ -700,11 +701,15 @@
                             <span>📅 Fecha: 29/09/2025</span>
                             <span>📊 Unidad 1</span>
                         </div>
-                        <p style="margin-top: 0.5rem; color: var(--text-light);">Implementación de técnicas de remuestreo bootstrap para estimación de intervalos de confianza.</p>
+                        <p style="margin-top: 0.5rem; color: var(--text-light);">Revisión sistemática de literatura en estadística computacional.</p>
                     </div>
                     <div class="work-actions">
-                        <button class="btn btn-primary" onclick="viewFile('pdf2')">Ver PDF</button>
-                        <button class="btn btn-secondary" onclick="viewFile('code2')">Ver Código R</button>
+                        <button class="btn btn-primary" onclick="viewFile('pdf8')">Ver PDF</button>
+                        <a href="https://github.com/BRy4n1-gif/EstComp/raw/main/SabanaDeDatos.xlsx"
+                        class="btn btn-secondary"
+                        download="SabanaDeDatos.xlsx">
+                            📊 Descargar Excel
+                        </a>
                     </div>
                 </div>
             </div>
@@ -767,7 +772,7 @@
     </footer>
 
     <script>
-        function showTab(tabId) {
+        function showTab(tabId, event) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-button');
             
@@ -783,71 +788,66 @@
             const viewer = document.getElementById('fileViewer');
             const title = document.getElementById('modalTitle');
             
-            // Aquí debes reemplazar con las URLs reales de tus archivos en GitHub
             const files = {
                 'pdf1': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea1.pdf&embedded=true',
                     title: 'Tarea 1 - Reporte PDF'
                 },
                 'code1': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea1.R',
                     title: 'Tarea 1 - Código R'
                 },
                 'pdf2': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea2/reporte.pdf',
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea2.pdf&embedded=true',
                     title: 'Tarea 2 - Reporte PDF'
                 },
                 'code2': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea2/codigo.R',
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea2.R',
                     title: 'Tarea 2 - Código R'
                 },
                 'pdf3': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/proyecto1/reporte.pdf',
-                    title: 'Proyecto 1 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea3.pdf&embedded=true',
+                    title: 'Tarea 3 - Reporte PDF'
                 },
                 'code3': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/proyecto1/codigo.R',
-                    title: 'Proyecto 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea3.R',
+                    title: 'Tarea 3 - Código R'
                 },
                 'pdf4': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
-                    title: 'Tarea 1 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea4.pdf&embedded=true',
+                    title: 'Tarea 4 - Reporte PDF'
                 },
                 'code4': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
-                    title: 'Tarea 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea4.R',
+                    title: 'Tarea 4 - Código R'
                 },
                 'pdf5': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
-                    title: 'Tarea 1 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea5.pdf&embedded=true',
+                    title: 'Tarea 5 - Reporte PDF'
                 },
                 'code5': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
-                    title: 'Tarea 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea5.R',
+                    title: 'Tarea 5 - Código R'
                 },
                 'pdf6': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
-                    title: 'Tarea 1 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea6.pdf&embedded=true',
+                    title: 'Tarea 6 - Reporte PDF'
                 },
                 'code6': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
-                    title: 'Tarea 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/app.R',
+                    title: 'Tarea 6 - Código R- Aplicación Shiny'
                 },
                 'pdf7': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/reporte.pdf',
-                    title: 'Tarea 1 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea7.pdf&embedded=true',
+                    title: 'Tarea 7 - Reporte PDF'
                 },
                 'code7': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
-                    title: 'Tarea 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea7.R',
+                    title: 'Tarea 7 - Código R'
                 },
-                    'pdf8': {
-                    url: 'https://github.com/BRy4n1-gif/EstComp/raw/main/RevSist.pdf', // ✅ sin espacios, con "raw"
+                'pdf8': {
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/RevSist.pdf&embedded=true',
                     title: 'Tarea 8 - Reporte PDF'
-                },
-                'code8': {
-                    url: 'https://github.com/tu-usuario/estadistica-computacional/blob/main/unidad1/tarea1/codigo.R',
-                    title: 'Tarea 8 - Código R'
                 }
             };
             
