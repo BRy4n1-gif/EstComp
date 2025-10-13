@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EST335 - Estadística Computacional</title>
+    <title>EST312 - Estadística Computacional</title>
+    
+    <!-- Highlight.js para resaltado de sintaxis -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
     <style>
         * {
             margin: 0;
@@ -387,6 +393,40 @@
             border: none;
         }
 
+        /* Estilo para numeración de líneas */
+        .code-container {
+            position: relative;
+            margin: 0;
+            background: #f8f9fa;
+        }
+        .code-container pre {
+            margin: 0;
+            padding-left: 60px;
+            counter-reset: line;
+            overflow-x: auto;
+            border: none;
+            background: transparent !important;
+        }
+        .code-container pre code {
+            display: block;
+            background: transparent !important;
+        }
+        .code-container pre code::before {
+            content: counter(line);
+            counter-increment: line;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            padding: 0 10px;
+            text-align: right;
+            color: #999;
+            background: #f0f0f0;
+            border-right: 1px solid #ddd;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.95em;
+        }
+
         footer {
             background: var(--dark-bg);
             color: white;
@@ -663,7 +703,7 @@
                     <div class="work-title">
                         <h3>Tarea 6: Shiny estadistica</h3>
                         <div class="work-meta">
-                            <span>📅 Fecha: 30/09/20255</span>
+                            <span>📅 Fecha: 30/09/2025</span>
                             <span>📊 Unidad 1</span>
                         </div>
                         <p style="margin-top: 0.5rem; color: var(--text-light);">
@@ -672,6 +712,9 @@
                     <div class="work-actions">
                         <button class="btn btn-primary" onclick="viewFile('pdf6')">Ver PDF</button>
                         <button class="btn btn-secondary" onclick="viewFile('code6')">Ver Código R</button>
+                        <button class="btn btn-secondary" onclick="window.open('https://bryancc0-0.shinyapps.io/tstudent/', '_blank')">
+                            📊 Abrir App Shiny
+                        </button>
                     </div>
                 </div>
             </div>
@@ -706,8 +749,8 @@
                     <div class="work-actions">
                         <button class="btn btn-primary" onclick="viewFile('pdf8')">Ver PDF</button>
                         <a href="https://github.com/BRy4n1-gif/EstComp/raw/main/SabanaDeDatos.xlsx"
-                        class="btn btn-secondary"
-                        download="SabanaDeDatos.xlsx">
+                           class="btn btn-secondary"
+                           download="SabanaDeDatos.xlsx">
                             📊 Descargar Excel
                         </a>
                     </div>
@@ -756,7 +799,7 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="modalTitle" style="margin-bottom: 1rem; color: var(--dark-bg);"></h2>
             <div class="viewer-container">
-                <iframe id="fileViewer" class="viewer-iframe"></iframe>
+                <!-- Se rellenará dinámicamente -->
             </div>
             <p style="margin-top: 1rem; color: var(--text-light); text-align: center;">
                 💡 Si el archivo no se visualiza correctamente, puedes descargarlo desde el repositorio de GitHub
@@ -785,84 +828,117 @@
 
         function viewFile(fileId) {
             const modal = document.getElementById('fileModal');
-            const viewer = document.getElementById('fileViewer');
             const title = document.getElementById('modalTitle');
-            
+            const viewerContainer = document.querySelector('.viewer-container');
+
             const files = {
                 'pdf1': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea1.pdf&embedded=true',
-                    title: 'Tarea 1 - Reporte PDF'
+                    title: 'Tarea 1 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code1': {
-                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea1.R',
-                    title: 'Tarea 1 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/t1_cv.R',
+                    title: 'Tarea 1 - Código R',
+                    type: 'code'
                 },
                 'pdf2': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea2.pdf&embedded=true',
-                    title: 'Tarea 2 - Reporte PDF'
+                    title: 'Tarea 2 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code2': {
                     url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea2.R',
-                    title: 'Tarea 2 - Código R'
+                    title: 'Tarea 2 - Código R',
+                    type: 'code'
                 },
                 'pdf3': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea3.pdf&embedded=true',
-                    title: 'Tarea 3 - Reporte PDF'
+                    title: 'Tarea 3 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code3': {
                     url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea3.R',
-                    title: 'Tarea 3 - Código R'
+                    title: 'Tarea 3 - Código R',
+                    type: 'code'
                 },
                 'pdf4': {
-                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea4.pdf&embedded=true',
-                    title: 'Tarea 4 - Reporte PDF'
+                    url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/T4/limcen.pdf&embedded=true',
+                    title: 'Tarea 4 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code4': {
-                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea4.R',
-                    title: 'Tarea 4 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/T4/limitecen.R',
+                    title: 'Tarea 4 - Código R',
+                    type: 'code'
                 },
                 'pdf5': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea5.pdf&embedded=true',
-                    title: 'Tarea 5 - Reporte PDF'
+                    title: 'Tarea 5 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code5': {
-                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea5.R',
-                    title: 'Tarea 5 - Código R'
+                    url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/T5/carameloabm.R',
+                    title: 'Tarea 5 - Código R',
+                    type: 'code'
                 },
                 'pdf6': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea6.pdf&embedded=true',
-                    title: 'Tarea 6 - Reporte PDF'
+                    title: 'Tarea 6 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code6': {
                     url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/app.R',
-                    title: 'Tarea 6 - Código R- Aplicación Shiny'
+                    title: 'Tarea 6 - Código R - Aplicación Shiny',
+                    type: 'code'
                 },
                 'pdf7': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/Tarea7.pdf&embedded=true',
-                    title: 'Tarea 7 - Reporte PDF'
+                    title: 'Tarea 7 - Reporte PDF',
+                    type: 'pdf'
                 },
                 'code7': {
                     url: 'https://raw.githubusercontent.com/BRy4n1-gif/EstComp/main/Tarea7.R',
-                    title: 'Tarea 7 - Código R'
+                    title: 'Tarea 7 - Código R',
+                    type: 'code'
                 },
                 'pdf8': {
                     url: 'https://docs.google.com/gview?url=https://github.com/BRy4n1-gif/EstComp/raw/main/RevSist.pdf&embedded=true',
-                    title: 'Tarea 8 - Reporte PDF'
+                    title: 'Tarea 8 - Reporte PDF',
+                    type: 'pdf'
                 }
             };
-            
+
             if (files[fileId]) {
                 title.textContent = files[fileId].title;
-                viewer.src = files[fileId].url;
                 modal.style.display = 'block';
+
+                if (files[fileId].type === 'pdf') {
+                    viewerContainer.innerHTML = `<iframe class="viewer-iframe" src="${files[fileId].url}"></iframe>`;
+                } else if (files[fileId].type === 'code') {
+                    fetch(files[fileId].url)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Archivo no encontrado');
+                            return response.text();
+                        })
+                        .then(code => {
+                            viewerContainer.innerHTML = `
+                                <div class="code-container">
+                                    <pre><code class="language-r">${code}</code></pre>
+                                </div>
+                            `;
+                            hljs.highlightAll();
+                        })
+                        .catch(err => {
+                            viewerContainer.innerHTML = `<div style="padding:2rem; color:#e74c3c; text-align:center;">❌ Error al cargar el código: ${err.message}</div>`;
+                        });
+                }
             }
         }
 
         function closeModal() {
             const modal = document.getElementById('fileModal');
-            const viewer = document.getElementById('fileViewer');
             modal.style.display = 'none';
-            viewer.src = '';
         }
 
         window.onclick = function(event) {
